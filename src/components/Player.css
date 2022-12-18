@@ -71,4 +71,25 @@ body {
     .component {
       width: 50%;
     }
+    .musicCover {
+        border-radius: 10%;
+        width: 200px;
+      }
+  }
+  @media (min-width: 901px) {
+    .component {
+        width: 60%;
+      }
+      .musicCover {
+          border-radius: 10%;
+          width: 350px;
+        }
+        .playButton {
+    background: none;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+ 
   }

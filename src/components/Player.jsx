@@ -96,25 +96,25 @@ const Player = () => {
 
       <div>
         <button className="playButton">
-          <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
+          <IconContext.Provider value={{ size: "3em", color: " #0a7dff" }}>
             <BiSkipPrevious />
           </IconContext.Provider>
         </button>
         {!isPlaying ? (
           <button className="playButton" onClick={playingButton}>
-            <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
+            <IconContext.Provider value={{ size: "3em", color: "#0a7dff" }}>
               <AiFillPlayCircle />
             </IconContext.Provider>
           </button>
         ) : (
           <button className="playButton" onClick={playingButton}>
-            <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
+            <IconContext.Provider value={{ size: "3em", color: "#0a7dff" }}>
               <AiFillPauseCircle />
             </IconContext.Provider>
           </button>
         )}
         <button className="playButton">
-          <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
+          <IconContext.Provider value={{ size: "3em", color: "#0a7dff" }}>
             <BiSkipNext />
           </IconContext.Provider>
         </button>
