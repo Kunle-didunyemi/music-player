@@ -14,7 +14,48 @@ const Player = () => {
         min: "",
         sec: "",
       }); // current position of the audio in minutes and seconds
+      const [time, setTime] = useState({
+        min: "",
+        sec: ""
+      });
+    
+      const [seconds, setSeconds] = useState(); // current position of the audio in seconds
+
+    const playingButton = () => {
+        if (isPlaying) {
+          pause(); // this will pause the audio
+          setIsPlaying(false);
+        } else {
+          play(); // this will play the audio
+          setIsPlaying(true);
+        }
+      };
+
      
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+              if (sound) {
+                setSeconds(sound.seek([])); // setting the seconds state with the current state
+                const min = Math.floor(sound.seek([]) / 60);
+                const sec = Math.floor(sound.seek([]) % 60);
+                setCurrTime({
+                  min,
+                  sec,
+                });
+              }
+            }, 1000);
+            return () => clearInterval(interval);
+          }, [sound]);
+
+          useEffect(() => {
+            const sec = duration / 1000;
+            const min = Math.floor(sec / 60);
+            const secRemain = Math.floor(sec % 60);
+            setTime({
+              min: min,
+              sec: secRemain
+            })}, [isPlaying]);
 
       
   return (
