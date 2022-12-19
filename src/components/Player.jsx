@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import useSound from "use-sound"; // for handling the sound
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // icons for play and pause
 import { BiSkipNext, BiSkipPrevious } from "react-icons/bi";
+import { VscUnmute } from "react-icons/vsc";
+import { IoVolumeMuteOutline } from "react-icons/io5";
 import { IconContext } from "react-icons"; // for customazing the icons
 import "./Player.css";
 import { audioPlayer } from "./audio";
@@ -9,7 +11,7 @@ import { audioPlayer } from "./audio";
 const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(audioPlayer[0]);
-  const [play, { pause, duration, sound, stop }] = useSound(currentSong.url);
+  const [play, { pause, duration, sound, stop, mute }] = useSound(currentSong.url);
   // const [songs, setSongs] = useState(audioPlayer);
 
   const [currTime, setCurrTime] = useState({
@@ -83,6 +85,14 @@ const Player = () => {
     stop();
     // playingButton();
   };
+  const mutes = ()=>{
+    // setIsPlaying(true)
+    mute()
+  }
+  const unMute = ()=>{
+    // setIsPlaying(false)
+   mute()
+  }
 
   return (
     <div className="component">
@@ -106,6 +116,21 @@ const Player = () => {
             {time.min}:{time.sec}
           </p>
         </div>
+        {isPlaying? (
+          <button
+          onClick={unMute}
+          className="muteBtn"
+          >
+            <VscUnmute/>
+          </button>
+        ):(
+          <button
+          onClick={mutes}
+          className="muteBtn2"
+          >
+            < IoVolumeMuteOutline/>
+          </button>
+        )}
         <input
           type="range"
           min="0"

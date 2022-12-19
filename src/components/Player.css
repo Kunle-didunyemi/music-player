@@ -57,9 +57,22 @@ body {
     color: #828282;
     font-size: smaller;
   }
+  .muteBtn{
+    background-color: #fff;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .muteBtn2{
+    background-color: #fff;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
   
   .timeline {
     width: 80%;
+    color: #27ae60;
     background-color: #27ae60;
   }
   
