@@ -11,8 +11,7 @@ import { audioPlayer } from "./audio";
 const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(audioPlayer[0]);
-  const [play, { pause, duration, sound, stop, mute }] = useSound(currentSong.url);
-  // const [songs, setSongs] = useState(audioPlayer);
+  const [play, { pause, duration, sound, stop }] = useSound(currentSong.url);
 
   const [currTime, setCurrTime] = useState({
     min: "",
@@ -85,14 +84,6 @@ const Player = () => {
     stop();
     // playingButton();
   };
-  const mutes = ()=>{
-    // setIsPlaying(true)
-    mute()
-  }
-  const unMute = ()=>{
-    // setIsPlaying(false)
-   mute()
-  }
 
   return (
     <div className="component">
@@ -116,19 +107,13 @@ const Player = () => {
             {time.min}:{time.sec}
           </p>
         </div>
-        {isPlaying? (
-          <button
-          onClick={unMute}
-          className="muteBtn"
-          >
-            <VscUnmute/>
+        {isPlaying ? (
+          <button className="muteBtn">
+            <VscUnmute />
           </button>
-        ):(
-          <button
-          onClick={mutes}
-          className="muteBtn2"
-          >
-            < IoVolumeMuteOutline/>
+        ) : (
+          <button className="muteBtn2">
+            <IoVolumeMuteOutline />
           </button>
         )}
         <input
