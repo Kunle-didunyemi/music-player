@@ -23,7 +23,7 @@ const Player = () => {
     sec: 0,
   });
 
-  const [seconds, setSeconds] = useState(0); // current position of the audio in seconds
+  const [seconds, setSeconds] = useState("0"); // current position of the audio in seconds
 
   const playingButton = () => {
     if (isPlaying) {
@@ -38,9 +38,9 @@ const Player = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (sound) {
-        setSeconds(sound.seek([])); // setting the seconds state with the current state
-        const min = Math.floor(sound.seek([]) / 60);
-        const sec = Math.floor(sound.seek([]) % 60);
+        setSeconds(sound.seek()); // setting the seconds state with the current state
+        const min = Math.floor(sound.seek() / 60);
+        const sec = Math.floor(sound.seek() % 60);
         setCurrTime({
           min,
           sec,
@@ -87,85 +87,100 @@ const Player = () => {
   };
 
   return (
-    <div className="component">
-      <h2>Playing Now</h2>
-      <div>
-        <img
-          className="musicCover"
-          src={currentSong.imageSrc}
-          alt="cover pic"
-        />
-        <h3 className="title"> {currentSong.title} </h3>
-        <p className="subTitle">{currentSong.subTitle}</p>
-      </div>
+    <div
+      style={
+        {
+          // background: `url(${currentSong.imageSrc})`,
+          // backgroundSize: 'cover',
+          // backgroundPosition: 'center',
+          // backgroundRepeat: 'no-repeat',
+          // overflow: 'hidden',
+        }
+      }
+      className="body"
+    >
+      <div className="bgBlur">
+        <div className="component">
+          <h2>Playing Now</h2>
+          <div>
+            <img
+              className="musicCover"
+              src={currentSong.imageSrc}
+              alt="cover pic"
+            />
+            <h3 className="title"> {currentSong.title} </h3>
+            <p className="subTitle">{currentSong.subTitle}</p>
+          </div>
 
-      <div>
-        <div className="time">
-          <p>
-            {currTime.min}:{currTime.sec}
-          </p>
-          <p>
-            {time.min}:{time.sec}
-          </p>
+          <div>
+            <div className="time">
+              <p>
+                {currTime.min}:{currTime.sec}
+              </p>
+              <p>
+                {time.min}:{time.sec}
+              </p>
+            </div>
+            {isPlaying && mute ? (
+              <button
+                onClick={() => {
+                  sound.volume(1);
+                  setMute(false);
+                }}
+                className="muteBtn2"
+              >
+                <IoVolumeMuteOutline />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  sound.volume(0);
+                  setMute(true);
+                }}
+                className="muteBtn"
+              >
+                <VscUnmute />
+              </button>
+            )}
+            <input
+              type="range"
+              min={0}
+              max={duration / 1000}
+              default={0}
+              value={seconds}
+              className="timeline"
+              onChange={(e) => {
+                sound.seek([e.target.value]);
+              }}
+            />
+          </div>
+
+          <div className="btns">
+            <button onClick={prevAudio} className="playButton">
+              <IconContext.Provider value={{ size: "3em", color: " #f6f2f8" }}>
+                <BiSkipPrevious />
+              </IconContext.Provider>
+            </button>
+            {!isPlaying ? (
+              <button className="playButton" onClick={playingButton}>
+                <IconContext.Provider value={{ size: "3em", color: "#f6f2f8" }}>
+                  <AiFillPlayCircle />
+                </IconContext.Provider>
+              </button>
+            ) : (
+              <button className="playButton" onClick={playingButton}>
+                <IconContext.Provider value={{ size: "3em", color: "#f6f2f8" }}>
+                  <AiFillPauseCircle />
+                </IconContext.Provider>
+              </button>
+            )}
+            <button onClick={nextAudio} className="playButton">
+              <IconContext.Provider value={{ size: "3em", color: "#f6f2f8" }}>
+                <BiSkipNext />
+              </IconContext.Provider>
+            </button>
+          </div>
         </div>
-        {isPlaying && mute ? (
-          <button
-            onClick={() => {
-              sound.volume(1);
-              setMute(false);
-            }}
-            className="muteBtn2"
-          >
-            <IoVolumeMuteOutline />
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              sound.volume(0);
-              setMute(true);
-            }}
-            className="muteBtn"
-          >
-            <VscUnmute />
-          </button>
-        )}
-        <input
-          type="range"
-          min="0"
-          max={duration / 1000}
-          default="0"
-          value={seconds}
-          className="timeline"
-          onChange={(e) => {
-            sound.seek([e.target.value]);
-          }}
-        />
-      </div>
-
-      <div>
-        <button onClick={prevAudio} className="playButton">
-          <IconContext.Provider value={{ size: "3em", color: " #0a7dff" }}>
-            <BiSkipPrevious />
-          </IconContext.Provider>
-        </button>
-        {!isPlaying ? (
-          <button className="playButton" onClick={playingButton}>
-            <IconContext.Provider value={{ size: "3em", color: "#0a7dff" }}>
-              <AiFillPlayCircle />
-            </IconContext.Provider>
-          </button>
-        ) : (
-          <button className="playButton" onClick={playingButton}>
-            <IconContext.Provider value={{ size: "3em", color: "#0a7dff" }}>
-              <AiFillPauseCircle />
-            </IconContext.Provider>
-          </button>
-        )}
-        <button onClick={nextAudio} className="playButton">
-          <IconContext.Provider value={{ size: "3em", color: "#0a7dff" }}>
-            <BiSkipNext />
-          </IconContext.Provider>
-        </button>
       </div>
     </div>
   );

@@ -1,5 +1,18 @@
-body {
-    background-color: #e5e5e5;
+body{
+  overflow: hidden;
+}
+.body {
+    /* background: url(../assets/wizkid.png); */
+    background: #091921;
+    min-height: 100vh;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position-x: 100%;
+    overflow-y: hidden;
+    position: relative;
+    z-index: 100;
+    /* opacity: .2; */
   }
   
   .App {
@@ -8,18 +21,43 @@ body {
   }
   
   .component {
-    background-color: white;
-    width: 25%;
+    -webkit-backdrop-filter: blur(15px);
+     backdrop-filter: blur(15px);
+     background-color: rgba(255, 255, 255, 0.09);
+    width: 70%;
+    height: 90vh;
     max-width: 600px;
-    margin: 1em auto;
+    margin: 2em auto 5em auto;
     padding-bottom: 2em;
-    border: 0.1px solid black;
     border-radius: 10px;
+    z-index: 10000;
+   border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
   }
+
+  .component > h2{
+    color: #c2c1c1;
+  }
+  .bgBlur{
+    -webkit-backdrop-filter: blur(15px);
+     backdrop-filter: blur(15px);
+     background: linear-gradient(
+    to bottom right,
+    rgba(66,54,105,255) ,
+    rgba(36,38,60,255) 10%,
+    rgba(48,50,83,255)  50%,
+    rgba(39,41,66,255)  90%,
+    rgba(66,54,105,255) );
+     height: 100vh;
+     padding-top: 1px;
+     
+  }
+  
   
   .musicCover {
     border-radius: 10%;
-    width: inherit;
+    width: 70%;
+    height: 50%;
   }
   
   .playButton {
@@ -28,10 +66,13 @@ body {
     align-items: center;
     justify-content: center;
   }
+  .title{
+    color: #ffffff;
+  }
   
   .subTitle {
     margin-top: -1em;
-    color: #4f4f4f;
+    color: #b3b1b1;
   }
   
   .track {
@@ -54,18 +95,20 @@ body {
     width: 80%;
     display: flex;
     justify-content: space-between;
-    color: #828282;
+    color: #c9c7c7;
     font-size: smaller;
   }
   .muteBtn{
-    background-color: #fff;
+    background-color: transparent;
     border: none;
-    font-size: 1rem;
+    color: #f6f2f8;
+    font-size: 1.2rem;
     cursor: pointer;
   }
   .muteBtn2{
-    background-color: #fff;
+    background-color: transparent;
     border: none;
+    color: #f6f2f8;
     font-size: 1.2rem;
     cursor: pointer;
   }
@@ -79,29 +122,107 @@ body {
   input[type="range"] {
     background-color: #27ae60;
   }
+  input[type="range"] {
+    -webkit-appearance: none;
+    margin-right: 15px;
+    width: 80%;
+    height: 7px;
+    background: #d6c7e8;
+    border-radius: 5px;
+    /* background-image: linear-gradient(#ff4500, #ff4500); */
+    background-size: 0%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: #b742ec;
+    cursor: ew-resize;
+    box-shadow: 0 0 2px 0 #555;
+    transition: background .3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  input[type=”range”]::-moz-range-track{
+    background-color: #27ae60;
+  }
+  
+  input[type=range]::-webkit-slider-runnable-track  {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
   
   @media (max-width: 900px) {
     .component {
-      width: 50%;
+      width: 95%;
     }
     .musicCover {
         border-radius: 10%;
-        width: 200px;
+        height: 90%;
+      width: 65%;
+      }
+      /* .btns{
+        margin-top: 100px;
+        margin-bottom: 200px;
+      } */
+  }
+  @media only screen and (max-width: 600px) {
+    .component {
+      width: 95%;
+    }
+    .musicCover {
+        border-radius: 10%;
+        height: 90%;
+      width: 70%;
+      }
+      .btns{
+        margin-top: 150px;
       }
   }
-  @media (max-width: 600px){
+  /* @media (max-width: 500px){
     .component {
-      width: 60%;
+      width: 90%;
+    }
+    .musicCover{
+      height: 90%;
+      width: 600px;
+      margin-bottom: 20px;
+      margin-top: 150px;
+    }
+    .btns{
+      margin-top: 200px;
+      margin-bottom: 200px;
+    }
+  } */
+  @media (max-width: 700px){
+    .component {
+      width: 90%;
+    }
+    .btns{
+      margin-top: 20px;
+    }
+    .musicCover{
+      height: 80%;
+      width: 65%;
+      margin-bottom: 20px;
+      margin-top: 10px;
     }
   }
   @media (min-width: 901px) {
     .component {
-        width: 60%;
+        width: 90%;
       }
+      
       .musicCover {
           border-radius: 10%;
-          width: 350px;
-          height: 400px;
+          height: 80%;
+          width: 65%;
         }
         .playButton {
     background: none;
@@ -110,5 +231,8 @@ body {
     justify-content: center;
     font-size: 1.2rem;
   }
- 
+  /* .btns{
+    margin-top: 100px;
+    margin-bottom: 200px;
+  } */
   }
