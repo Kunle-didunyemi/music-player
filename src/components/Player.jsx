@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import useSound from "use-sound"; // for handling the sound
-import joha from "../assets/Joha.mp3"; // importing the music
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // icons for play and pause
-import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // icons for next and previous track
+import { BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { IconContext } from "react-icons"; // for customazing the icons
 import "./Player.css";
-import AsakePic from "../assets/asake.png";
-import Jonny from "../assets/jonny-drille.mp3";
+import { audioPlayer } from "./audio";
 
 const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [play, { pause, duration, sound }] = useSound(joha);
+  const [currentSong, setCurrentSong] = useState(audioPlayer[0]);
+  const [play, { pause, duration, sound, stop }] = useSound(currentSong.url);
+  // const [songs, setSongs] = useState(audioPlayer);
 
   const [currTime, setCurrTime] = useState({
     min: "",
@@ -56,15 +56,45 @@ const Player = () => {
       min: min,
       sec: secRemain,
     });
-  }, [isPlaying]);
+  }, [isPlaying, duration]);
+
+  const prevAudio = () => {
+    const index = audioPlayer.findIndex((x) => x.title === currentSong.title);
+    if (index === 0) {
+      setCurrentSong(audioPlayer[audioPlayer.length - 1]);
+    } else {
+      setCurrentSong(audioPlayer[index - 1]);
+    }
+    setCurrTime(0);
+    setIsPlaying(false);
+    stop();
+    // playingButton();
+  };
+
+  const nextAudio = () => {
+    const index = audioPlayer.findIndex((x) => x.title === currentSong.title);
+    if (index === audioPlayer.length - 1) {
+      setCurrentSong(audioPlayer[0]);
+    } else {
+      setCurrentSong(audioPlayer[index + 1]);
+    }
+    setCurrTime(0);
+    setIsPlaying(false);
+    stop();
+    // playingButton();
+  };
 
   return (
     <div className="component">
       <h2>Playing Now</h2>
-      <img className="musicCover" src={AsakePic} />
       <div>
-        <h3 className="title">Mr money- Asake</h3>
-        <p className="subTitle">Joha</p>
+        <img
+          className="musicCover"
+          src={currentSong.imageSrc}
+          alt="cover pic"
+        />
+        <h3 className="title"> {currentSong.title} </h3>
+        <p className="subTitle">{currentSong.subTitle}</p>
       </div>
 
       <div>
@@ -90,7 +120,7 @@ const Player = () => {
       </div>
 
       <div>
-        <button className="playButton">
+        <button onClick={prevAudio} className="playButton">
           <IconContext.Provider value={{ size: "3em", color: " #0a7dff" }}>
             <BiSkipPrevious />
           </IconContext.Provider>
@@ -108,7 +138,7 @@ const Player = () => {
             </IconContext.Provider>
           </button>
         )}
-        <button className="playButton">
+        <button onClick={nextAudio} className="playButton">
           <IconContext.Provider value={{ size: "3em", color: "#0a7dff" }}>
             <BiSkipNext />
           </IconContext.Provider>

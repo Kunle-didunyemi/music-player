@@ -76,6 +76,11 @@ body {
         width: 200px;
       }
   }
+  @media (max-width: 600px){
+    .component {
+      width: 60%;
+    }
+  }
   @media (min-width: 901px) {
     .component {
         width: 60%;
@@ -83,6 +88,7 @@ body {
       .musicCover {
           border-radius: 10%;
           width: 350px;
+          height: 400px;
         }
         .playButton {
     background: none;
